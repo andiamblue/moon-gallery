@@ -164,83 +164,66 @@
 
     <footer class="footer mt-4" id="social-media">
         <a href="https://instagram.com/yourprofile" target="_blank" title="اینستاگرام"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/yourprofile" target="_blank" title="تلگرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://wa.me/yourphonenumber" target="_blank" title="واتس‌اپ"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://t.me/moonGalleryBrave" target="_blank" title="تلگرام"><i class="fab fa-telegram"></i></a>
+        <a href="https://chat.whatsapp.com/CDklYSBOnGw4jkH2Y4kIAe" target="_blank" title="واتس‌اپ"><i class="fab fa-whatsapp"></i></a>
     </footer>
 
     <script>
-        function setupSlider(section) {
-            let slides = section.querySelectorAll('.slide');
-            let dots = section.querySelectorAll('.dot');
-            let currentIndex = 0;
-            let startX = 0;
-            let endX = 0;
-
-            function showSlide(index) {
-                slides.forEach((slide, i) => {
-                    slide.style.display = (i === index) ? 'block' : 'none';
-                    dots[i].classList.toggle('active-dot', i === index);
-                });
-            }
-
-            function nextSlide() {
-                currentIndex = (currentIndex + 1) % slides.length;
-                showSlide(currentIndex);
-            }
-
-            function prevSlide() {
-                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                showSlide(currentIndex);
-            }
-
-            dots.forEach((dot, i) => {
-                dot.addEventListener('click', () => {
-                    currentIndex = i;
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".slider-container").forEach((slider) => {
+                let slides = slider.querySelectorAll(".slide");
+                let dots = slider.querySelectorAll(".dot");
+                let currentIndex = 0;
+        
+                function showSlide(index) {
+                    slides.forEach((slide, i) => {
+                        slide.classList.toggle("active", i === index);
+                        dots[i].classList.toggle("active-dot", i === index);
+                    });
+                }
+        
+                slider.querySelector(".nav-buttons button:first-child").addEventListener("click", function () {
+                    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
                     showSlide(currentIndex);
                 });
+        
+                slider.querySelector(".nav-buttons button:last-child").addEventListener("click", function () {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    showSlide(currentIndex);
+                });
+        
+                dots.forEach((dot, i) => {
+                    dot.addEventListener("click", function () {
+                        currentIndex = i;
+                        showSlide(currentIndex);
+                    });
+                });
+        
+                showSlide(currentIndex);
             });
-
-            section.addEventListener('touchstart', (e) => {
-                startX = e.touches[0].clientX;
-            });
-
-            section.addEventListener('touchmove', (e) => {
-                endX = e.touches[0].clientX;
-            });
-
-            section.addEventListener('touchend', () => {
-                if (startX - endX > 50) { // Swipe left
-                    nextSlide();
-                } else if (endX - startX > 50) { // Swipe right
-                    prevSlide();
+        
+            // تابع فول اسکرین
+            window.openFullscreen = function (btn) {
+                let slider = btn.closest(".slider-container").querySelector(".slide.active");
+                if (slider.requestFullscreen) {
+                    slider.requestFullscreen();
+                } else if (slider.mozRequestFullScreen) {
+                    slider.mozRequestFullScreen();
+                } else if (slider.webkitRequestFullscreen) {
+                    slider.webkitRequestFullscreen();
+                } else if (slider.msRequestFullscreen) {
+                    slider.msRequestFullscreen();
                 }
-            });
-
-            setInterval(nextSlide, 3000);
-
-            section.querySelector('.nav-buttons button:nth-child(1)').addEventListener('click', prevSlide);
-            section.querySelector('.nav-buttons button:nth-child(2)').addEventListener('click', nextSlide);
-        }
-
-        function hideSpinner(img) {
-            img.parentElement.querySelector('.loading-spinner').style.display = 'none';
-        }
-
-        function openFullscreen(button) {
-            let img = button.parentElement.querySelector('.slide.active');
-            if (img.requestFullscreen) {
-                img.requestFullscreen();
-            } else if (img.mozRequestFullScreen) { // Firefox
-                img.mozRequestFullScreen();
-            } else if (img.webkitRequestFullscreen) { // Chrome, Safari, and Opera
-                img.webkitRequestFullscreen();
-            } else if (img.msRequestFullscreen) { // IE/Edge
-                img.msRequestFullscreen();
-            }
-        }
-
-        document.querySelectorAll('.section').forEach(setupSlider);
-    </script>
+            };
+        
+            // حذف اسپینر هنگام لود شدن تصاویر
+            window.hideSpinner = function (img) {
+                let spinner = img.closest(".slider-container").querySelector(".loading-spinner");
+                if (spinner) spinner.style.display = "none";
+            };
+        });
+        </script>
+        
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
