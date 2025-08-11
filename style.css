@@ -1,0 +1,312 @@
+/* تنظیمات فونت و متغیرهای رنگ */
+@import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap');
+
+:root {
+    --bg-color: #121212; /* مشکی پس‌زمینه */
+    --primary-color: #1e1e1e; /* خاکستری خیلی تیره برای کارت‌ها */
+    --accent-color: #f5f5f5; /* تغییر رنگ از طلایی به سفید */
+    --text-color: #e0e0e0; /* سفید مایل به خاکستری */
+    --text-color-dark: #adadad;
+}
+
+/* تنظیمات کلی */
+html {
+    scroll-behavior: smooth; /* برای اسکرول نرم بین بخش‌ها */
+}
+
+body {
+    font-family: 'Vazirmatn', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding-top: 70px; /* فاصله برای نوار ناوبری ثابت */
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-weight: 700;
+}
+
+h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 50px;
+}
+
+section {
+    padding: 80px 0;
+}
+
+/* نوار ناوبری */
+.navbar {
+    background-color: rgba(18, 18, 18, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #2a2a2a;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+/* ==== بخش هدر با پس‌زمینه تصویری و عکس کاربر ==== */
+.hero-section {
+    position: relative;
+    height: 70vh;
+    background: url('law-background.jpg') center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+.hero-section{
+    padding: 50PX;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    
+}
+
+.profile-photo {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-bottom: 15px;
+    object-fit: cover;
+    
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    color: #fff;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    color: var(--text-color-dark);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    padding: 12px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.btn:hover {
+    background-color: var(--text-color-dark);
+    transform: translateY(-3px);
+}
+
+/* بخش درباره من */
+.about-content {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+}
+
+.about-text {
+    flex-basis: 50%;
+}
+
+.about-images {
+    flex-basis: 50%;
+    position: relative;
+    height: 350px;
+}
+
+.image-box {
+    position: absolute;
+    width: 65%;
+    height: 65%;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    border: 3px solid var(--accent-color);
+    transition: transform 0.4s;
+}
+.image-box:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.image-1 { background-image: url('your-photo-2.PNG'); top: 0; left: 0; }
+.image-2 { background-image: url('your-photo-3.PNG'); top: 20%; right: 0; z-index: 2; }
+.image-3 { background-image: url('your-photo-4.PNG'); top: 45%; left: 15%; }
+
+/* بخش تخصص‌ها */
+.expertise-section {
+    background-color: var(--primary-color);
+}
+
+.expertise-slider {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.expertise-card {
+    background-color: var(--bg-color);
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+    transition: transform 0.3s, border-color 0.3s;
+}
+
+.expertise-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--accent-color);
+}
+
+.expertise-card h3 {
+    color: var(--accent-color);
+    margin-top: 0;
+}
+.expertise-card p {
+    color: var(--text-color-dark);
+    line-height: 1.8;
+}
+
+/* فوتر و بخش تماس */
+.footer {
+    background-color: #000;
+    text-align: center;
+    padding: 60px 0;
+}
+
+.social-icons {
+    margin-top: 20px;
+}
+
+.social-icons a {
+    color: var(--text-color);
+    font-size: 2rem;
+    margin: 0 15px;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.social-icons a:hover {
+    color: var(--accent-color);
+    transform: scale(1.2);
+}
+
+/* ======================= طراحی واکنش‌گرا (برای موبایل) ======================= */
+.hamburger-menu {
+    display: none; /* به صورت پیش‌فرض پنهان است */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px;
+    }
+
+    .nav-links {
+        display: none; /* منو به صورت پیش‌فرض در موبایل پنهان است */
+        flex-direction: column;
+        width: 100%;
+        position: absolute;
+        top: 60px; /* زیر نوار ناوبری */
+        left: 0;
+        background-color: var(--primary-color);
+        padding: 20px;
+        text-align: center;
+        border-top: 1px solid #2a2a2a;
+    }
+
+    .nav-links.active { /* با کلیک روی همبرگر، این کلاس اضافه می‌شود و منو نمایش داده می‌شود */
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin: 10px 0;
+    }
+
+    .hamburger-menu {
+        display: block; /* نمایش دکمه همبرگر */
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .about-content {
+        flex-direction: column;
+    }
+
+    .about-text {
+        text-align: center;
+    }
+    
+    .about-images {
+        margin-top: 3rem;
+        height: 300px;
+        width: 100%;
+    }
+
+    .expertise-slider {
+        grid-template-columns: 1fr; /* کارت‌ها زیر هم نمایش داده می‌شوند */
+    }
+}

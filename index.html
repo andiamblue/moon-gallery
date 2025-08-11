@@ -1,390 +1,97 @@
 <!DOCTYPE html>
-<html lang="fa">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>آلبوم ماهرخ</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-
-.navbar {
-    position: fixed;
-    top: 50px; /* چون پلیر در بالا هست، Navbar را کمی پایین‌تر قرار بدهید */
-    left: 0;
-    width: 100%;
-    z-index: 1001; /* باید مقدار آن بالاتر از پلیر باشد */
-}
-        /* پلیر چسبیده به بالای صفحه */
-.music-player {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #111;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-}
-
-/* استایل کنترل‌های پلیر */
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-button {
-    background: transparent;
-    border: none;
-    color: white;
-    font-size: 20px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-}
-
-button:hover {
-    transform: scale(1.2);
-    color: #1db954;
-}
-
-/* نوار پیشرفت */
-#seek-bar {
-    width: 150px;
-    cursor: pointer;
-}
-
-
-
-
-        html {
-    scroll-behavior: smooth;
-}
-        :root {
-            --primary-color: #343a40;
-            --secondary-color: #f8f9fa;
-            --dot-color: gray;
-            --active-dot-color: black;
-        }
-
-        body { text-align: center; background-color: var(--secondary-color); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .slider-container { position: relative; overflow: hidden; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-        .slide { display: none; max-width: 100%; height: auto; max-height: 400px; margin: 0 auto; animation: fadeIn 1s; transition: transform 0.5s ease-in-out; }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .active { display: block; }
-        .dot { height: 10px; width: 10px; margin: 5px; background-color: var(--dot-color); border-radius: 50%; display: inline-block; cursor: pointer; transition: background-color 0.3s ease; }
-        .dot:hover { background-color: var(--active-dot-color); }
-        .active-dot { background-color: var(--active-dot-color); }
-        .section { padding: 20px; background: white; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); }
-        .footer { padding: 20px; background-color: var(--primary-color); color: white; text-align: center; }
-        .footer a { color: white; margin: 0 15px; font-size: 24px; text-decoration: none; transition: color 0.3s ease; }
-        .footer a:hover { color: #3498db; }
-        .nav-buttons { margin-top: 10px; }
-        .nav-buttons button { background: none; border: none; font-size: 24px; cursor: pointer; transition: color 0.3s ease; }
-        .nav-buttons button:hover { color: #3498db; }
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #3498db;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .fullscreen-btn { 
-            position: absolute; 
-            top: 10px; 
-            right: 10px; 
-            background: rgba(0, 0, 0, 0.5); 
-            color: white; 
-            border: none; 
-            padding: 5px 10px; 
-            cursor: pointer; 
-            border-radius: 5px; 
-            transition: background 0.3s ease; 
-        }
-        .fullscreen-btn:hover { background: rgba(0, 0, 0, 0.8); }
-        .slider-container:hover .slide { transform: scale(1.05); }
-        @media (max-width: 768px) {
-            .slide { max-height: 300px; }
-            .footer a { font-size: 20px; }
-            .nav-buttons button { font-size: 20px; }
-        }
-    </style>
+    <title> ایراندخت شجاع بختیاری</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <div class="music-player">
-        <audio id="audio-player" src="song1.mp3"></audio>
-        <div class="controls">
-            <button id="prev">&#9665;</button>
-            <button id="play-pause">&#9654;</button>
-            <button id="next">&#9655;</button>
-            <input type="range" id="seek-bar" value="0">
-        </div>
-    </div>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">آلبوم ماهرخ</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#personal">شخصی</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#spouse">با همسر</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#family">خانواده</a></li>
-                    <!-- لینک جدید به بخش شبکه‌های اجتماعی -->
-                    <li class="nav-item"><a class="nav-link" href="#social-media">شبکه‌های اجتماعی</a></li>
 
-                    <li class="nav-item"><a class="nav-link" href="#propos">خواستگاری</a></li>
-                </ul>
-            </div>
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">ایراندخت شجاع بختیاری</a>
+            <button class="hamburger-menu" id="hamburger-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-links" id="nav-menu">
+                <li><a href="#about">درباره من</a></li>
+                <li><a href="#expertise">تخصص‌ها</a></li>
+                <li><a href="#contact">تماس</a></li>
+            </ul>
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <div id="personal" class="section">
-            <h2>شخصی</h2>
-            <div class="slider-container">
-                <div class="loading-spinner"></div>
-                <img class="slide active" src="personal1.jpg" alt="شخصی 1" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="personal2.jpg" alt="شخصی 2" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="personal3.jpg" alt="شخصی 3" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="personal4.jpg" alt="شخصی 4" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="personal5.jpg" alt="شخصی 5" loading="lazy" onload="hideSpinner(this)">
-                <button class="fullscreen-btn" onclick="openFullscreen(this)">&#x26F6;</button>
-                <div class="nav-buttons">
-                    <button onclick="prevSlide(this)">&#10094;</button>
-                    <button onclick="nextSlide(this)">&#10095;</button>
+    <header class="hero-section">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <img src="your-photo.PNG" alt="عکس وکیل" class="profile-photo">
+            <h1>ایراندخت شجاع بختیاری</h1>
+            <p>وکیل پایه یک دادگستری و مشاور حقوقی</p>
+            <a href="your-cv.pdf" class="btn" download>دانلود رزومه (PDF)</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="about-section">
+            <div class="container about-content">
+                <div class="about-text">
+                    <h2>درباره من</h2>
+                    <p>
+                        من یک وکیل متعهد و باتجربه هستم که با اشتیاق به اجرای عدالت، به موکلانم در پیمودن مسیرهای پیچیده قانونی کمک می‌کنم. فلسفه کاری من بر پایه صداقت، شفافیت و تلاش بی‌وقفه برای دستیابی به بهترین نتیجه ممکن استوار است.
+                    </p>
                 </div>
-                <div>
-                    <span class="dot active-dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+                <div class="about-images">
+                    <div class="image-box image-1"></div>
+                    <div class="image-box image-2"></div>
+                    <div class="image-box image-3"></div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div id="spouse" class="section">
-            <h2>با همسر</h2>
-            <div class="slider-container">
-                <div class="loading-spinner"></div>
-                <img class="slide active" src="spouse1.jpg" alt="با همسر 1" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="spouse2.jpg" alt="با همسر 2" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="spouse3.jpg" alt="با همسر 3" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="spouse4.jpg" alt="با همسر 4" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="spouse5.jpg" alt="با همسر 5" loading="lazy" onload="hideSpinner(this)">
-                <button class="fullscreen-btn" onclick="openFullscreen(this)">&#x26F6;</button>
-                <div class="nav-buttons">
-                    <button onclick="prevSlide(this)">&#10094;</button>
-                    <button onclick="nextSlide(this)">&#10095;</button>
-                </div>
-                <div>
-                    <span class="dot active-dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
+        <section id="expertise" class="expertise-section">
+            <div class="container">
+                <h2>حوزه‌های تخصصی</h2>
+                <div class="expertise-slider">
+                    <article class="expertise-card">
+                        <h3>دعاوی ملکی و ثبتی</h3>
+                        <p>تخصص در پرونده‌های الزام به تنظیم سند، خلع ید، کلاهبرداری‌های ملکی و دعاوی مرتبط با شهرداری.</p>
+                    </article>
+                    <article class="expertise-card">
+                        <h3>پرونده‌های کیفری</h3>
+                        <p>تجربه موفق در دفاع از حقوق متهمان در جرائم اقتصادی، سایبری، پزشکی و سایر جرائم عمومی.</p>
+                    </article>
+                    <article class="expertise-card">
+                        <h3>حقوق شرکت‌ها و قراردادها</h3>
+                        <p>مشاوره در تنظیم اساسنامه، صورت‌جلسات، قراردادهای تجاری و ارائه راهکارهای حقوقی به کسب‌وکارها.</p>
+                    </article>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <div id="family" class="section">
-            <h2>خانواده</h2>
-            <div class="slider-container">
-                <div class="loading-spinner"></div>
-                <img class="slide active" src="family1.jpg" alt="خانواده 1" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="family2.jpg" alt="خانواده 2" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="family3.jpg" alt="خانواده 3" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="family4.jpg" alt="خانواده 4" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="family5.jpg" alt="خانواده 5" loading="lazy" onload="hideSpinner(this)">
-                <button class="fullscreen-btn" onclick="openFullscreen(this)">&#x26F6;</button>
-                <div class="nav-buttons">
-                    <button onclick="prevSlide(this)">&#10094;</button>
-                    <button onclick="nextSlide(this)">&#10095;</button>
-                </div>
-                <div>
-                    <span class="dot active-dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
+    <footer id="contact" class="footer">
+        <div class="container">
+            <h3>آماده همکاری و ارائه مشاوره</h3>
+            <p>از طریق راه‌های زیر می‌توانید با من در تماس باشید.</p>
+            <div class="social-icons">
+                <a href="https://wa.me/989120000000" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                <a href="tel:+989120000000" aria-label="Phone"><i class="fas fa-phone"></i></a>
             </div>
         </div>
-
-
-
-        <div id="propos" class="section">
-            <h2>خواستگاری</h2>
-            <div class="slider-container">
-                <div class="loading-spinner"></div>
-                <img class="slide active" src="propose1.jpg" alt="ازواج 1" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="propose2.jpg" alt="ازدواج 2" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="propose3.jpg" alt="ازدواج 3" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="propose4.jpg" alt="ازدواج 4" loading="lazy" onload="hideSpinner(this)">
-                <img class="slide" src="propose5.jpg" alt="ازدواج 5" loading="lazy" onload="hideSpinner(this)">
-                <button class="fullscreen-btn" onclick="openFullscreen(this)">&#x26F6;</button>
-                <div class="nav-buttons">
-                    <button onclick="prevSlide(this)">&#10094;</button>
-                    <button onclick="nextSlide(this)">&#10095;</button>
-                </div>
-                <div>
-                    <span class="dot active-dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                    <span class="dot"></span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="footer mt-4" id="social-media">
-        <a href="https://instagram.com/yourprofile" target="_blank" title="اینستاگرام"><i class="fab fa-instagram"></i></a>
-        <a href="https://t.me/moonGalleryBrave" target="_blank" title="تلگرام"><i class="fab fa-telegram"></i></a>
-        <a href="https://chat.whatsapp.com/CDklYSBOnGw4jkH2Y4kIAe" target="_blank" title="واتس‌اپ"><i class="fab fa-whatsapp"></i></a>
     </footer>
-
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".slider-container").forEach((slider) => {
-                let slides = slider.querySelectorAll(".slide");
-                let dots = slider.querySelectorAll(".dot");
-                let currentIndex = 0;
-                let autoSlideInterval;
-        
-                function showSlide(index) {
-                    slides.forEach((slide, i) => {
-                        slide.classList.toggle("active", i === index);
-                        dots[i].classList.toggle("active-dot", i === index);
-                    });
-                }
-        
-                function nextSlide() {
-                    currentIndex = (currentIndex + 1) % slides.length;
-                    showSlide(currentIndex);
-                }
-        
-                function startAutoSlide() {
-                    stopAutoSlide(); // جلوگیری از اجرای چندباره تایمر
-                    autoSlideInterval = setInterval(nextSlide, 3000); // تغییر هر 3 ثانیه
-                }
-        
-                function stopAutoSlide() {
-                    clearInterval(autoSlideInterval);
-                }
-        
-                slider.querySelector(".nav-buttons button:first-child").addEventListener("click", function () {
-                    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-                    showSlide(currentIndex);
-                    startAutoSlide(); // ریست تایمر
-                });
-        
-                slider.querySelector(".nav-buttons button:last-child").addEventListener("click", function () {
-                    currentIndex = (currentIndex + 1) % slides.length;
-                    showSlide(currentIndex);
-                    startAutoSlide(); // ریست تایمر
-                });
-        
-                dots.forEach((dot, i) => {
-                    dot.addEventListener("click", function () {
-                        currentIndex = i;
-                        showSlide(currentIndex);
-                        startAutoSlide(); // ریست تایمر
-                    });
-                });
-        
-                // اجرای اتوماتیک اسلایدر
-                startAutoSlide();
-        
-                // توقف اسلایدر هنگام هاور کردن و ادامه بعد از ترک
-                slider.addEventListener("mouseenter", stopAutoSlide);
-                slider.addEventListener("mouseleave", startAutoSlide);
-        
-                showSlide(currentIndex);
-            });
-        
-            // تابع فول اسکرین
-            window.openFullscreen = function (btn) {
-                let slider = btn.closest(".slider-container").querySelector(".slide.active");
-                if (slider.requestFullscreen) {
-                    slider.requestFullscreen();
-                } else if (slider.mozRequestFullScreen) {
-                    slider.mozRequestFullScreen();
-                } else if (slider.webkitRequestFullscreen) {
-                    slider.webkitRequestFullscreen();
-                } else if (slider.msRequestFullscreen) {
-                    slider.msRequestFullscreen();
-                }
-            };
-        
-            // حذف اسپینر هنگام لود شدن تصاویر
-            window.hideSpinner = function (img) {
-                let spinner = img.closest(".slider-container").querySelector(".loading-spinner");
-                if (spinner) spinner.style.display = "none";
-            };
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
-        const audio = document.getElementById("audio-player");
-const playPauseBtn = document.getElementById("play-pause");
-const seekBar = document.getElementById("seek-bar");
+    </script>
 
-const songs = ["song1.mp3", "song2.mp3"];
-let currentSongIndex = 0;
-
-function playPause() {
-    if (audio.paused) {
-        audio.play();
-        playPauseBtn.innerHTML = "⏸";
-    } else {
-        audio.pause();
-        playPauseBtn.innerHTML = "▶️";
-    }
-}
-
-function nextSong() {
-    currentSongIndex = (currentSongIndex + 1) % songs.length;
-    audio.src = songs[currentSongIndex];
-    audio.play();
-    playPauseBtn.innerHTML = "⏸";
-}
-
-function prevSong() {
-    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-    audio.src = songs[currentSongIndex];
-    audio.play();
-    playPauseBtn.innerHTML = "⏸";
-}
-
-playPauseBtn.addEventListener("click", playPause);
-document.getElementById("next").addEventListener("click", nextSong);
-document.getElementById("prev").addEventListener("click", prevSong);
-
-// آپدیت نوار پیشرفت
-audio.addEventListener("timeupdate", () => {
-    seekBar.value = (audio.currentTime / audio.duration) * 100;
-});
-
-seekBar.addEventListener("input", () => {
-    audio.currentTime = (seekBar.value / 100) * audio.duration;
-});
-
-        </script>
-        
-        
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
